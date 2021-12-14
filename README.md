@@ -44,3 +44,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+```
+"--- notify ---": "electron-packager <应用目录> <应用名称> <打包平台> <架构x86还是x64> <应用的版本号> [electron镜像地址] <架构> <electron版本> <--out:打包后的文件夹> <--ignore:忽略的文件夹>",
+"electron:build": "electron-packager . SaaS --platform=win32 --arch=x64 --download.mirrorOptions.mirror=https://npm.taobao.org/mirrors/electron/ --overwrite --electron-version=16.0.4 --out=electron",
+```
