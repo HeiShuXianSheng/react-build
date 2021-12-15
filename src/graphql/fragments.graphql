@@ -1,0 +1,351 @@
+fragment UserFragment on User {
+  id
+  departmentId
+  department {
+    id
+    name
+    parentId
+  }
+  dutyId
+  duty {
+    id
+    name
+    departmentId
+  }
+  email
+  name
+  phone
+  shouldChangePassword
+  createdAt(unit: "datetime")
+  uin
+  permissions
+  superiorId
+  superior {
+    id
+    name
+  }
+  roles {
+    id
+    roleName
+  }
+  status
+  handoverInfo {
+    ...HandoverInfoFragment
+  }
+}
+fragment HandoverInfoFragment on HandoverInfo {
+  handoverName
+  handoverTargetId
+  handoverType
+  handoverUserId
+  id
+  leaverId
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+
+fragment TrackFragment on TracK {
+  #  线索ID
+  id
+  #  描述
+  clueId
+  description
+  #  操作人
+  updatedAt(unit: "datetime")
+  user {
+    ...UserFragment
+  }
+  #  操作人ID
+  userId
+  status
+  createdAt(unit: "datetime")
+}
+
+fragment DutyFragment on Duty {
+  id
+  name
+  departmentId
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+
+fragment DepartmentFragment on Department {
+  id
+  name
+  parentId
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+
+fragment DocFragment on Documentation {
+  id
+  uuId
+  name
+  containerId
+  containerType
+  type
+  userId
+  user {
+    ...UserFragment
+  }
+  uploadAt
+  downloadUrl
+  status
+  previewUrl
+  createdAt(unit: "datetime")
+  updatedAt(unit: "datetime")
+}
+
+fragment ClueFragment on Clue {
+  id
+  #  公司名字
+  companyName
+  #  线索项目
+  project
+  #  线索备注
+  remark
+  #  线索来源
+  source
+  #  状态
+  status
+  #  跟踪情况
+  track {
+    ...TrackFragment
+  }
+  #  上传人员
+  user {
+    ...UserFragment
+  }
+  #  上传人员ID
+  userId
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+
+  files {
+    pageSize: limit
+    page
+    total: totalCount
+    nodes {
+      ...DocFragment
+    }
+  }
+}
+
+fragment ProjectFragment on Project {
+  businessUser {
+    ...UserFragment
+  }
+  businessUserId
+  clue {
+    ...ClueFragment
+  }
+  clueId
+  id
+  name
+  ownerCompanyName
+  priority
+  remark
+  status
+  type
+  user {
+    ...UserFragment
+  }
+  userId
+  files {
+    nodes {
+      ...DocFragment
+    }
+  }
+  createdAt(unit: "datetime")
+  updatedAt(unit: "datetime")
+}
+
+fragment DocumentationFragment on Documentation {
+  containerId
+  containerType
+  downloadUrl
+  id
+  name
+  previewUrl
+  projectName
+  status
+  type
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+  uploadAt(unit: "datetime")
+  user {
+    name
+    id
+  }
+  userId
+  uuId
+}
+
+fragment ProcessDesignFragment on ProcessDesign {
+  id
+  type
+  process {
+    approveIds
+    id
+    cc
+    forward
+    lastNodeId
+    processDesignId
+    successfulNumber
+    updatedAt(unit: "datetime")
+    createdAt(unit: "datetime")
+  }
+  operatorId
+  operator {
+    ...UserFragment
+  }
+  superApproveId
+  superApprover {
+    ...UserFragment
+  }
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+
+fragment RoleFragment on Role {
+  id
+  roleName
+  permissions
+  operatorId
+  operator {
+    ...UserFragment
+  }
+  createdAt(unit: "datetime")
+  updatedAt(unit: "datetime")
+}
+
+fragment ApprovalFragment on Approval {
+  applicant {
+    ...UserFragment
+  }
+  applicantId
+  finishFlows {
+    forward
+    approvalId
+    approveId
+    approver {
+      ...UserFragment
+    }
+    id
+    type
+    processNodeId
+    remark
+    status
+    reading
+    cc {
+      userId
+      user {
+        id
+        name
+      }
+    }
+    updatedAt(unit: "datetime")
+    createdAt(unit: "datetime")
+  }
+  waitFlows {
+    forward
+    approvalId
+    approveId
+    approver {
+      ...UserFragment
+    }
+    approval {
+      superApproveId
+    }
+    id
+    type
+    processNodeId
+    remark
+    status
+    reading
+    updatedAt(unit: "datetime")
+    createdAt(unit: "datetime")
+  }
+  superFlows {
+    approvalId
+    approveId
+    approver {
+      id
+      name
+    }
+    id
+    type
+    processNodeId
+    remark
+    status
+    reading
+    updatedAt(unit: "datetime")
+    createdAt(unit: "datetime")
+  }
+  superApproveId
+  id
+  processDesign {
+    ...ProcessDesignFragment
+  }
+  processDesignId
+  processDesignType
+  sourceClue {
+    ...ClueFragment
+  }
+  sourceDataId
+  sourceProject {
+    ...ProjectFragment
+  }
+  status
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+
+fragment ApprovalFlowFragment on ApprovalFlow {
+  approvalId
+  approveId
+  approver {
+    ...UserFragment
+  }
+  approval {
+    ...ApprovalFragment
+  }
+  forward
+  id
+  type
+  processNodeId
+  remark
+  status
+  reading
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+fragment ApprovalCCFragment on ApprovalCC {
+  userId
+  user {
+    ...UserFragment
+  }
+  approvalId
+  approvalFlowId
+  approval {
+    ...ApprovalFragment
+  }
+  id
+  reading
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}
+
+fragment DictionaryFragment on Dictionary {
+  id
+  dictionaryValue {
+    value
+    dictionaryId
+    id
+    updatedAt(unit: "datetime")
+    createdAt(unit: "datetime")
+  }
+  type
+  updatedAt(unit: "datetime")
+  createdAt(unit: "datetime")
+}

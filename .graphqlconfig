@@ -1,0 +1,43 @@
+{
+  "name": "Untitled GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Mocked GraphQL Endpoint": {
+        "url": "http://localhost:9002/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      },
+      "ServerGraphQL:RC": {
+        "url": "http://172.19.1.157:29100/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      },
+      "ServerGraphQL:Kidal": {
+        "url": "http://172.19.1.201:29100/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      },
+      "ServerGraphQL:WK": {
+        "url": "http://172.19.1.20:29100/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      },
+      "ServerGraphQL:LH": {
+        "url": "http://172.19.1.18:29100/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

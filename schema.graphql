@@ -1,0 +1,1236 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Approval {
+  "所有审批人名称"
+  allApprover: [String]
+  "申请人"
+  applicant: User
+  "申请人ID"
+  applicantId: Int!
+  createdAt(unit: String): Date!
+  "已完成审批流"
+  finishFlows: [ApprovalFlow!]
+  "目标数据ID"
+  goalDataId: Int!
+  id: Int!
+  "审批类型"
+  processDesign: ProcessDesign
+  "审批类型ID"
+  processDesignId: Int!
+  "审批类型"
+  processDesignType: ProcessDesignType
+  "来源线索"
+  sourceClue: Clue
+  "来源数据ID"
+  sourceDataId: Int!
+  "来源项目"
+  sourceProject: Project
+  "状态"
+  status: ApprovalStatus!
+  "超级审批人ID"
+  superApproveId: Int!
+  "超级审批流"
+  superFlows: [ApprovalFlow!]
+  updatedAt(unit: String): Date!
+  "待办审批流"
+  waitFlows: [ApprovalFlow!]
+}
+
+type ApprovalCC {
+  "审批"
+  approval: Approval
+  "审批流ID"
+  approvalFlowId: Int!
+  "审批ID"
+  approvalId: Int!
+  createdAt(unit: String): Date!
+  id: Int!
+  "阅读状态"
+  reading: Boolean
+  updatedAt(unit: String): Date!
+  "抄送人"
+  user: User
+  "抄送人ID"
+  userId: Int!
+}
+
+type ApprovalCCPage {
+  limit: Int!
+  nodes: [ApprovalCC]
+  page: Int!
+  totalCount: Int!
+}
+
+type ApprovalFlow {
+  "审批"
+  approval: Approval
+  "审批ID"
+  approvalId: Int!
+  "审批人ID"
+  approveId: Int!
+  "审批人"
+  approver: User
+  "抄送"
+  cc: [ApprovalCC!]
+  createdAt(unit: String): Date!
+  "是否可转交"
+  forward: Boolean!
+  "转交人ID"
+  forwardUserId: Int!
+  id: Int!
+  "审批类型节点ID"
+  processNodeId: Int!
+  "阅读状态"
+  reading: Boolean
+  "评论"
+  remark: String
+  "状态"
+  status: ApprovalFlowStatus!
+  "审批流分类"
+  type: ApprovalFlowType!
+  updatedAt(unit: String): Date!
+}
+
+type ApprovalFlowDto {
+  "审批时间"
+  approveAt(unit: String): Date
+  "审批人"
+  approveName: String
+  "审批状态"
+  status: ApprovalFlowStatus
+}
+
+type ApprovalFlowPage {
+  limit: Int!
+  nodes: [ApprovalFlow]
+  page: Int!
+  totalCount: Int!
+}
+
+type ApprovalPage {
+  limit: Int!
+  nodes: [Approval]
+  page: Int!
+  totalCount: Int!
+}
+
+type Clue {
+  "公司名字"
+  companyName: String!
+  createdAt(unit: String): Date!
+  "文件列表"
+  files: DocumentationPage
+  id: Int!
+  "线索项目"
+  project: String!
+  "线索备注"
+  remark: String!
+  "线索来源"
+  source: String!
+  "状态"
+  status: ClueStatus!
+  "跟踪情况"
+  track: [TracK!]
+  updatedAt(unit: String): Date!
+  "上传人员"
+  user: User
+  "上传人员ID"
+  userId: Int!
+}
+
+type CluePage {
+  limit: Int!
+  nodes: [Clue]
+  page: Int!
+  totalCount: Int!
+}
+
+type Department {
+  createdAt(unit: String): Date!
+  "部门下职位"
+  duty: [Duty]
+  id: Int!
+  "部门名称"
+  name: String!
+  "父级部门ID"
+  parentId: Int!
+  updatedAt(unit: String): Date!
+}
+
+"字典"
+type Dictionary {
+  createdAt(unit: String): Date!
+  "字典值"
+  dictionaryValue: [DictionaryValue!]
+  id: Int!
+  "字典类型(项目类型/线索来源)"
+  type: DictionaryType
+  updatedAt(unit: String): Date!
+}
+
+type DictionaryPage {
+  limit: Int!
+  nodes: [Dictionary]
+  page: Int!
+  totalCount: Int!
+}
+
+"字典值"
+type DictionaryValue {
+  createdAt(unit: String): Date!
+  "字典类型id"
+  dictionaryId: Int
+  id: Int!
+  updatedAt(unit: String): Date!
+  "选项值"
+  value: String
+}
+
+type Documentation {
+  "容器id"
+  containerId: Int
+  "容器类型"
+  containerType: ContainerType
+  createdAt(unit: String): Date
+  "下载地址"
+  downloadUrl: String
+  id: Int!
+  "文档名称"
+  name: String
+  "预览地址"
+  previewUrl: String
+  "项目名称"
+  projectName: String
+  "文件状态"
+  status: DocumentationStatus
+  "文档类型"
+  type: DocumentationType
+  updatedAt(unit: String): Date
+  "上传时间"
+  uploadAt(unit: String): Date
+  "上传人员"
+  user: User
+  "上传人员id"
+  userId: Int
+  "文件唯一识别码"
+  uuId: String
+}
+
+type DocumentationDto {
+  "上传时间"
+  uploadAt(unit: String): Date
+  "文件上传人"
+  uploadUserName: String
+}
+
+type DocumentationPage {
+  limit: Int!
+  nodes: [Documentation]
+  page: Int!
+  totalCount: Int!
+}
+
+type Duty {
+  createdAt(unit: String): Date!
+  "部门ID"
+  departmentId: Int!
+  id: Int!
+  "职位名称"
+  name: String!
+  updatedAt(unit: String): Date!
+}
+
+type EmitFlowtaskResult {
+  logs: [EmitFlowtaskResultLog!]
+}
+
+type EmitFlowtaskResultLog {
+  level: EmitFlowtaskResultLogLevel
+  message: String
+}
+
+type Flowtask {
+  createdAt(unit: String): Date!
+  flowtaskId: String!
+  flowtaskName: String!
+  id: Int!
+  model: String!
+  stage: FlowtaskStage!
+  state: FlowtaskState!
+  updatedAt(unit: String): Date!
+}
+
+type FlowtaskPage {
+  limit: Int!
+  nodes: [Flowtask!]
+  page: Int!
+  totalCount: Int!
+}
+
+type HandoverInfo {
+  createdAt(unit: String): Date!
+  "交接名称"
+  handoverName: String
+  "离职目标ID"
+  handoverTargetId: Int
+  "离职内容分类"
+  handoverType: HandoverType
+  "交接人员"
+  handoverUserId: Int
+  id: Int!
+  "离职人员"
+  leaverId: Int
+  updatedAt(unit: String): Date!
+}
+
+type LeftMenu {
+  btnList: [LeftMenuBtn!]
+  title: String!
+  type: LeftMenuType!
+}
+
+type LeftMenuBtn {
+  name: String!
+  value: String!
+}
+
+type Mutation {
+  "超级审批员同意审批"
+  agreeApproval("审批ID" approvalId: Int!, "意见" remark: String): Boolean
+  "同意审批流"
+  agreeApprovalFlow("审批流ID" approvalFlowId: Int!, "意见" remark: String): Boolean
+  "绑定企业微信用户"
+  bindWXToUser("授权获取到的code" code: String): Boolean
+  "取消审批"
+  cancelApproval("审批ID" approvalId: Int!): Boolean
+  "拉取部门信息"
+  cgiBinDepartmentList: Boolean
+  "拉取部门员工信息"
+  cgiBinUserSimpleList: Boolean
+  "改密码"
+  changePassword("旧密码" oldPassword: String!, "新密码" password: String!): Boolean
+  "克隆流程任务，return->部署后的流程任务ID"
+  cloneFlowtask(
+    "基于哪个流程任务部署"
+    flowtaskId: String!
+    "克隆后，切换到哪个阶段"
+    flowtaskStage: FlowtaskStage!
+  ): String
+  "立项"
+  clueToProject(
+    "商务负责人"
+    businessUserId: Int!
+    "线索ID"
+    clueId: Int!
+    "项目名称"
+    projectName: String!
+    "优先级"
+    projectPriority: Priority!
+    "项目类型"
+    projectType: String!
+  ): Boolean
+  "创建审批"
+  createApproval("审批类型ID" processDesignId: Int!, "来源数据ID" sourceDataId: Int!): Boolean
+  "创建线索"
+  createClue(
+    "公司名字"
+    companyName: String!
+    "文件uuid 集合"
+    files: [String!]
+    "线索项目"
+    project: String!
+    "线索备注"
+    remark: String
+    "线索来源"
+    source: String!
+  ): Boolean
+  "创建部门"
+  createDepartment("部门名称" name: String!, "父级部门ID 最高级=0" parentId: Int!): Boolean
+  "添加字典值"
+  createDictionaryValue("字典id" dictionaryId: Int!, "选项值" value: String!): Boolean
+  "创建职位"
+  createDuty("部门ID" departmentId: Int!, "职位名称" name: String!): Boolean
+  "创建审批设计"
+  createProcessDesign(
+    "审批人（多个逗号分隔）"
+    approveIds: String!
+    "抄送人ID（多个逗号分隔）"
+    cc: String
+    "是否可转交"
+    forward: Boolean!
+    "审批通过数量"
+    successfulNumber: Int!
+    "超级审批人ID"
+    superApproveId: Int
+    "审批类型"
+    type: ProcessDesignType!
+  ): Boolean
+  "添加项目"
+  createProject(
+    businessUserId: Int!
+    "文件uuid 集合"
+    files: [String!]
+    name: String!
+    ownerCompanyName: String!
+    priority: Priority!
+    remark: String
+    type: String
+  ): Boolean
+  "创建角色"
+  createRole("权限" permissions: [UserPermission!], "角色名称" roleName: String!): Boolean
+  "添加线索追踪情况"
+  createTrack("线索ID" clueId: Int!, "情况描述" description: String!): Boolean
+  "创建用户"
+  createUser(
+    "部门ID"
+    departmentId: Int!
+    "职位ID"
+    dutyId: Int!
+    "邮箱"
+    email: String!
+    "员工姓名"
+    name: String!
+    "电话 同时作为登录账号"
+    phone: String!
+    "角色ID"
+    roleId: [Int!]
+    "强制改密 true:登陆时强制改密"
+    shouldChangePassword: Boolean!
+    "直属主管ID"
+    superiorId: Int
+  ): Boolean
+  "删除线索"
+  deleteClue(id: Int!): Boolean
+  "删除部门"
+  deleteDepartment(id: ID!): Boolean
+  "移除字典值"
+  deleteDictionaryValue("字典值id" dictionaryValueId: Int): Boolean
+  "移除项目文档"
+  deleteDocumentation(idList: [Int!]): Boolean
+  "删除职位"
+  deleteDuty(id: Int!): Boolean
+  "删除流程任务"
+  deleteFlowtask(flowtaskId: String!): Boolean
+  "删除审批设计"
+  deleteProcessDesign(id: Int!): Boolean
+  "删除角色"
+  deleteRole(id: Int!): Boolean
+  "向流程任务提交数"
+  emitFlowtask(
+    "数据字典的JSON字符串"
+    data: String
+    "流程任务ID"
+    flowtaskId: String!
+    "节点ID"
+    nodeIds: [String!]
+  ): EmitFlowtaskResult
+  fake: Boolean
+  "转交审批流"
+  forwardApprovalFlow("审批流ID" approvalFlowId: Int!, "转交人" forwardUerId: Int!): Boolean
+  "退出登录"
+  logout: Boolean
+  "测试接口"
+  monthlyCheckInDate(endAt: Date, startAt: Date): Boolean
+  "发表评论"
+  publishComment("审批ID" approvalId: Int!, "评论" remark: String): Boolean
+  "发表疑问"
+  publishIssue(
+    "审批流ID"
+    approvalFlowId: Int!
+    "审批ID"
+    approvalId: Int!
+    "疑问"
+    remark: String
+  ): Boolean
+  "扫码登录"
+  qywxCodeLogin(code: String!): User
+  "阅读抄送"
+  readApprovalCC("审批抄送ID" approvalCCId: Int!): Boolean
+  "阅读审批流"
+  readApprovalFlow("审批流ID" approvalFlowId: Int!): Boolean
+  "超级审批员拒绝审批"
+  refuseApproval("审批ID" approvalId: Int!, "意见" remark: String): Boolean
+  "拒绝审批流"
+  refuseApprovalFlow("审批流ID" approvalFlowId: Int!, "意见" remark: String): Boolean
+  "初始化密码"
+  resetPassword(id: [Int!]!): Boolean
+  "离职"
+  resign("离职交接信息" handoverInfo: [InputHandoverInfo!], "离职人ID" resignUserId: Int!): Boolean
+  "设置用户角色"
+  saveUserRole("角色ID" roleId: [Int!], "用户ID" userId: Int!): Boolean
+  "向用户发送消息"
+  sendMsgToUser("消息主体" content: String!, "用户ID" userId: [Int!]!): Boolean
+  "提交项目文件审批"
+  submitDocumentsForApproval("项目id" projectId: Int!): Boolean
+  "修改线索"
+  updateClue(
+    "公司名字"
+    companyName: String
+    "文件uuid 集合"
+    files: [String!]
+    id: Int!
+    "线索项目"
+    project: String
+    "线索备注"
+    remark: String
+    "线索来源"
+    source: String
+  ): Boolean
+  "修改部门"
+  updateDepartment(id: ID!, "部门名称" name: String, "父级部门ID 最高级=0" parentId: Int): Boolean
+  "修改职位"
+  updateDuty("部门ID" departmentId: Int, id: Int!, "职位名称" name: String): Boolean
+  "修改审批设计"
+  updateProcessDesign(
+    "审批人（多个逗号分隔）"
+    approveIds: String
+    "抄送人ID（多个逗号分隔）"
+    cc: String
+    "是否可转交"
+    forward: Boolean
+    id: Int!
+    "审批通过数量"
+    successfulNumber: Int
+    "超级审批人ID"
+    superApproveId: Int
+    "审批类型"
+    type: ProcessDesignType
+  ): Boolean
+  "编辑项目"
+  updateProject(
+    businessUserId: Int
+    "文件uuid 集合"
+    files: [String!]
+    id: Int!
+    name: String
+    ownerCompanyName: String
+    priority: Priority!
+    remark: String
+    type: String
+  ): Boolean
+  "更改项目状态"
+  updateProjectStatus(id: Int!, status: ProjectStatus): Boolean
+  "修改角色"
+  updateRole(id: Int!, "权限" permissions: [UserPermission!], "角色名称" roleName: String): Boolean
+  "编辑线索追踪"
+  updateTrack(clueId: Int): Boolean
+  "修改用户"
+  updateUser(
+    "部门ID"
+    departmentId: Int
+    "职位ID"
+    dutyId: Int
+    "邮箱"
+    email: String
+    id: Int!
+    "员工姓名"
+    name: String
+    "电话 同时作为登录账号"
+    phone: String
+    "角色ID"
+    roleId: [Int!]
+    "强制改密 true:登陆时强制改密"
+    shouldChangePassword: Boolean
+    "直属主管ID"
+    superiorId: Int
+  ): Boolean
+  "提醒"
+  urgeApproval("审批ID" approvalId: Int!): Boolean
+  "员工登录"
+  userLogin("密码" password: String!, "电话号码" phone: String!): User
+}
+
+type ProcessDesign {
+  createdAt(unit: String): Date!
+  id: Int!
+  "操作人"
+  operator: User
+  "操作人ID"
+  operatorId: Int!
+  "审批节点"
+  process: [ProcessNode!]
+  "超级审批人ID"
+  superApproveId: Int
+  "超级审批人"
+  superApprover: User
+  "审批类型"
+  type: ProcessDesignType!
+  updatedAt(unit: String): Date!
+}
+
+type ProcessDesignPage {
+  limit: Int!
+  nodes: [ProcessDesign]
+  page: Int!
+  totalCount: Int!
+}
+
+type ProcessNode {
+  "审批人ID"
+  approveIds: String!
+  "审批人"
+  approves: [User]
+  "抄送人"
+  cc: String!
+  "条件内容"
+  conditionContent: String!
+  "条件顺序"
+  conditionOrder: Int!
+  "条件节点分类"
+  conditionType: ProcessNodeConditionType!
+  createdAt(unit: String): Date!
+  "是否可转交"
+  forward: Boolean!
+  id: Int!
+  "上一个节点ID"
+  lastNodeId: Int!
+  "审批类型ID"
+  processDesignId: Int!
+  "审批通过数量"
+  successfulNumber: Int!
+  "审批节点分类"
+  type: ProcessNodeType!
+  updatedAt(unit: String): Date!
+}
+
+type Project {
+  businessUser: User
+  businessUserId: Int!
+  clue: Clue
+  clueId: Int!
+  createdAt(unit: String): Date
+  "文件列表"
+  files: DocumentationPage
+  id: Int!
+  name: String!
+  ownerCompanyName: String!
+  priority: Priority!
+  remark: String
+  status: ProjectStatus!
+  type: String
+  updatedAt(unit: String): Date
+  user: User
+  userId: Int!
+}
+
+type ProjectApprovalFlowDto {
+  "审批流id"
+  approvalFlowId: Int
+  "审批时间"
+  approveAt(unit: String): Date
+  "审批人id"
+  approveId: Int
+  "审批人"
+  approveName: String
+  "转交信息"
+  forwardInformation: String
+  "评论"
+  remark: String
+  "审批状态"
+  status: ApprovalFlowStatus
+}
+
+type ProjectApprovalFlowList {
+  list: [ProjectApprovalFlowDto]
+}
+
+type ProjectFlow {
+  "线索审批"
+  clueApprovals: [Approval]
+  "项目审批"
+  projectApprovals: [Approval]
+  "标书立项人"
+  projectSponsor: String
+  "标书立项时间"
+  projectTime(unit: String): Date
+  "项目上传投标文件"
+  projectUploadBidDocuments: [DocumentationDto]
+  "上传标书文件&计划安排表"
+  projectUploadBiddingDocuments: [DocumentationDto]
+  "上传线索时间"
+  uploadClueAt(unit: String): Date
+  "上传线索人"
+  userName: String
+}
+
+type ProjectPage {
+  limit: Int!
+  nodes: [Project]
+  page: Int!
+  totalCount: Int!
+}
+
+type Query {
+  "查询审批抄送"
+  approvalCCPage(
+    "审批ID"
+    approvalId: [Int!]
+    limit: Int
+    page: Int
+    "阅读状态"
+    reading: Boolean
+    "模糊搜索"
+    search: String
+    sorts: [String!]
+    "抄送人ID"
+    userId: [Int!]
+  ): ApprovalCCPage
+  "查询审批流"
+  approvalFlowPage(
+    "审批ID"
+    approvalId: [Int!]
+    "审批人ID"
+    approveId: [Int!]
+    id: [Int!]
+    limit: Int
+    page: Int
+    "审批类型ID"
+    processDesignId: [Int!]
+    "审批节点"
+    processNodeId: [Int!]
+    "阅读状态"
+    reading: Boolean
+    "去除重复 type:SUPER_APPROVAL和APPROVAL都存在只出现APPROVAL"
+    removeSuperFlowRepeat: Boolean
+    "模糊搜索"
+    search: String
+    sorts: [String!]
+    "状态"
+    status: [ApprovalFlowStatus!]
+    "审批流分类"
+    type: [ApprovalFlowType!]
+  ): ApprovalFlowPage
+  "查询审批"
+  approvalPage(
+    "申请人"
+    applicantId: [Int!]
+    "创建数据ID"
+    dateId: [Int!]
+    id: [Int!]
+    limit: Int
+    page: Int
+    "审批设计ID"
+    processDesignId: [Int!]
+    "审批设计类型"
+    processDesignType: [ProcessDesignType!]
+    "模糊搜索"
+    search: String
+    sorts: [String!]
+    "状态"
+    status: [ApprovalStatus!]
+  ): ApprovalPage
+  "获取前端需要的企业微信配置项 (现构建登录连接使用)"
+  clientConfigs: WXClientConfig
+  "线索列表"
+  cluePage(
+    "公司名字"
+    companyName: String
+    limit: Int
+    page: Int
+    "线索项目"
+    project: String
+    "模糊搜索"
+    search: String
+    sorts: [String!]
+    "线索来源"
+    source: String
+    "状态"
+    status: [ClueStatus!]
+  ): CluePage
+  "部门职位列表"
+  departmentDuty("部门ID" departmentId: Int!): [Duty!]
+  "获取字典集合"
+  dictionaryPage(limit: Int, page: Int, sorts: [String!]): DictionaryPage
+  "获取项目文档集合"
+  documentationPage(
+    limit: Int
+    "文档名称"
+    name: String
+    page: Int
+    "项目id"
+    projectId: Int
+    sorts: [String!]
+  ): DocumentationPage
+  "得到文件下载地址"
+  downloadFile(filename: String): String
+  fake: Boolean
+  "获取流程任务"
+  flowtask(flowtaskId: String!): Flowtask
+  "获取流程任务分页"
+  flowtaskPage(
+    "每页个数"
+    limit: Int
+    "页码"
+    page: Int
+    "排序"
+    sorts: [String!]
+    "阶段"
+    stage: [FlowtaskStage!]
+    "状态"
+    state: [FlowtaskState!]
+  ): FlowtaskPage
+  "获取wx服务accessToken 测试用，正式环境删除"
+  getAccessToken: String
+  "获取wx服务用户信息 测试用，正式环境删除"
+  getWXUserInfo(wxUserId: String!): WXUserInfo
+  "离职交接信息列表"
+  handoverInfo("用户ID" userId: Int!): [HandoverInfo]
+  "左侧菜单"
+  leftMenuList: [LeftMenu!]
+  "审批设计列表"
+  processDesignPage(
+    id: [Int!]
+    limit: Int
+    "操作人ID"
+    operatorId: [Int!]
+    page: Int
+    sorts: [String!]
+    "超级审批人ID"
+    superApproveId: [Int!]
+    "审批名称"
+    type: [ProcessDesignType!]
+  ): ProcessDesignPage
+  "测试缓存"
+  project(id: Int): Project
+  "查看项目流程"
+  projectFlow(projectId: Int): ProjectFlow
+  "获取项目集合"
+  projectPage(
+    businessUserId: [Int!]
+    clueId: [Int!]
+    limit: Int
+    name: String
+    ownerCompanyName: String
+    page: Int
+    "模糊搜索"
+    search: String
+    sorts: [String!]
+    status: [ProjectStatus!]
+    type: String
+  ): ProjectPage
+  "全部部门"
+  queryDepartmentList: [Department!]
+  "角色列表"
+  rolePage(
+    id: [Int!]
+    limit: Int
+    page: Int
+    "角色名称"
+    roleName: String
+    sorts: [String!]
+  ): RolePage
+  "得到文件上传地址"
+  uploadFile(filename: String): String
+  "查询用户"
+  user("不传id 为查询自己信息" id: Int): User
+  "查询用户列表"
+  userPage(
+    "部门ID"
+    departmentId: [Int!]
+    "职位ID"
+    dutyId: [Int!]
+    limit: Int
+    page: Int
+    "模糊搜索（姓名、电话）"
+    search: String
+    sorts: [String!]
+    "用户状态"
+    status: [UserStatus!]
+    "直属主管ID"
+    superiorId: [Int!]
+  ): UserPage
+}
+
+type Role {
+  createdAt(unit: String): Date!
+  id: Int!
+  operator: User
+  operatorId: Int!
+  permissions: [UserPermission!]
+  roleName: String!
+  updatedAt(unit: String): Date!
+}
+
+type RolePage {
+  limit: Int!
+  nodes: [Role]
+  page: Int!
+  totalCount: Int!
+}
+
+type TracK {
+  "线索ID"
+  clueId: Int!
+  createdAt(unit: String): Date!
+  "描述"
+  description: String!
+  id: Int!
+  "跟踪情况状态"
+  status: TrackStatus
+  updatedAt(unit: String): Date!
+  "操作人"
+  user: User
+  "操作人ID"
+  userId: Int!
+  "操作人姓名"
+  userName: String
+}
+
+type User {
+  createdAt(unit: String): Date!
+  "部门"
+  department: Department
+  "部门ID"
+  departmentId: Int
+  "职位"
+  duty: Duty
+  "职位ID"
+  dutyId: Int
+  "邮箱"
+  email: String!
+  "离职信息"
+  handoverInfo: [HandoverInfo!]
+  id: Int!
+  "员工姓名"
+  name: String!
+  "权限"
+  permissions: [String!]
+  "电话"
+  phone: String!
+  "角色"
+  roles: [Role!]
+  "强制改密"
+  shouldChangePassword: Boolean!
+  "状态"
+  status: UserStatus!
+  "直属主管"
+  superior: User
+  "直属主管ID"
+  superiorId: Int
+  uin: String
+  updatedAt(unit: String): Date!
+  "微信openId"
+  wxUserId: String
+}
+
+type UserPage {
+  limit: Int!
+  nodes: [User]
+  page: Int!
+  totalCount: Int!
+}
+
+type WXClientConfig {
+  "授权方的网页应用ID ?"
+  workWxAgentId: String
+  "企业微信的CorpID"
+  workWxAppid: String
+}
+
+type WXUserInfo {
+  email: String
+  gender: Int
+  mobile: String
+  name: String
+  userid: String
+}
+
+enum ApprovalFlowStatus {
+  "撤销"
+  CANCEL
+  "审批拒绝"
+  FAILD
+  "已转交"
+  FORWARD
+  "跳过审批 超级审批员同意 or 拒绝 达到审批节点通过条件"
+  JUMP
+  "审批通过"
+  SUCCESS
+  "待审批"
+  WAIT
+}
+
+enum ApprovalFlowType {
+  "审批"
+  APPROVAL
+  "已撤销"
+  CANCEL
+  "抄送"
+  CC
+  "评论"
+  COMMENT
+  "疑问"
+  ISSUE
+  NONE
+  "超级审批"
+  SUPER_APPROVAL
+}
+
+enum ApprovalStatus {
+  "取消审批"
+  CANCEL
+  "审批失败"
+  FAILD
+  "审批中"
+  PENDING
+  "审批通过"
+  SUCCESS
+  "待审批"
+  WAIT
+}
+
+enum ClueStatus {
+  "审批中"
+  APPROVING
+  "逻辑删除"
+  DELETED
+  "成功立项"
+  FINISHED_PROJECT
+  "未通过"
+  NOT_PASSED
+  "已通过"
+  PASSED
+  "已撤销"
+  RECALLED
+  "待审批"
+  WAIT_APPROVE
+}
+
+enum ContainerType {
+  "线索"
+  CLUE
+  "项目"
+  PROJECT
+}
+
+enum DictionaryType {
+  "线索来源"
+  CLUE_SOURCE
+  "项目类型"
+  PROJECT_TYPE
+}
+
+enum DocumentationStatus {
+  "审批中"
+  APPROVAL
+  "NONE"
+  NONE
+}
+
+enum DocumentationType {
+  "附件"
+  ANNEX
+  "招标文件"
+  BIDDING_DOCUMENT
+  "投标文件"
+  BID_DOCUMENT
+  "计划安排表"
+  SCHEDULE
+}
+
+enum EmitFlowtaskResultLogLevel {
+  ERROR
+  INFO
+  WARN
+}
+
+enum FlowtaskStage {
+  ARCHIVED
+  PREFABS
+  RUNNING
+}
+
+enum FlowtaskState {
+  ACTIVE
+  DONE
+  INACTIVE
+}
+
+enum HandoverType {
+  "审批当前审批人"
+  APPROVAL_CURRENT_APPROVER
+  NONE
+  "节点审批人"
+  PROCESS_NORMAL_APPROVER
+  "超级审批人"
+  PROCESS_SUPER_APPROVER
+  "项目负责人"
+  PROJECT_PRINCIPAL
+}
+
+enum LeftMenuType {
+  "关心"
+  ATTENTION
+  "跳转"
+  JUMP
+  "分隔符"
+  SEPARATOR
+  "待办"
+  TODO
+  "查看所有项目"
+  VIEW_ALL
+}
+
+enum Priority {
+  P1
+  P2
+  P3
+}
+
+enum ProcessDesignType {
+  "线索立项审批"
+  CLUE_TO_PROJECT
+  "计划安排表确认审批"
+  PROJECT_ARRANGE
+}
+
+enum ProcessNodeConditionType {
+  NONE
+}
+
+enum ProcessNodeType {
+  "审批节点"
+  APPROVAL_NODE
+  "抄送节点"
+  CC_NODE
+  "条件节点"
+  CONDITION_NODE
+  NONE
+}
+
+enum ProjectStatus {
+  "审批中"
+  APPROVAL
+  "已完成"
+  COMPLETE
+  "正常"
+  NORMAL
+  "被终止"
+  TERMINATION
+}
+
+enum TrackStatus {
+  "未查看"
+  NOT_VIEWED
+  "已查看"
+  TO_VIEW
+}
+
+enum UserPermission {
+  "线索审批"
+  CLUE_APPROVE
+  "线索添加"
+  CLUE_INCREASE
+  "线索立项"
+  CLUE_TO_PROJECT
+  "线索跟踪情况添加"
+  CLUE_TRACK_INCREASE
+  "线索跟踪情况查看"
+  CLUE_TRACK_VIEW
+  "线索查看"
+  CLUE_VIEW
+  "部门指定负责人"
+  DEPARTMENT_DEFINE_PRINCIPAL
+  "部门删除"
+  DEPARTMENT_DELETED
+  "部门编辑"
+  DEPARTMENT_EDIT
+  "部门添加"
+  DEPARTMENT_INCREASE
+  "部门查看"
+  DEPARTMENT_VIEW
+  "字典编辑"
+  DICTIONARY_EDIT
+  "字典查看"
+  DICTIONARY_VIEW
+  "职位删除"
+  DUTY_DELETED
+  "职位编辑"
+  DUTY_EDIT
+  "职位添加"
+  DUTY_INCREASE
+  "职位查看"
+  DUTY_VIEW
+  "未通过线索回退"
+  NOT_PASS_CLUE_REGRESS
+  "未通过线索查看"
+  NOT_PASS_CLUE_VIEW
+  "删除审批管理"
+  PROCESS_DELETED
+  "审批管理编辑"
+  PROCESS_EDIT
+  "新增审批管理"
+  PROCESS_INCREASE
+  "审批管理查看"
+  PROCESS_VIEW
+  "项目垃圾桶查看"
+  PROJECT_ASHCAN_VIEW
+  "项目投标文件添加"
+  PROJECT_BID_DOCUMENT_INCREASE
+  "项目投标文件查看"
+  PROJECT_BID_DOCUMENT_VIEW
+  "项目文档下载"
+  PROJECT_DOCUMENTATION_DOWN
+  "项目文档查看"
+  PROJECT_DOCUMENTATION_VIEW
+  "项目流程图查看"
+  PROJECT_FLOW_DIAGRAM_VIEW
+  "项目添加"
+  PROJECT_INCREASE
+  "项目招标文件&计划安排文件添加"
+  PROJECT_TENDER_AND_PLAN_DOCUMENT_INCREASE
+  "项目招标文件&计划安排文件查看"
+  PROJECT_TENDER_AND_PLAN_DOCUMENT_VIEW
+  "项目归档"
+  PROJECT_TO_ARCHIVE
+  "项目移动垃圾桶"
+  PROJECT_TO_ASHCAN
+  "项目查看"
+  PROJECT_VIEW
+  "角色删除"
+  ROLE_DELETED
+  "角色编辑"
+  ROLE_EDIT
+  "角色添加"
+  ROLE_INCREASE
+  "角色管理查看"
+  ROLE_VIEW
+  "员工编辑"
+  USER_EDIT
+  "员工添加"
+  USER_INCREASE
+  "员工密码初始化"
+  USER_PASSWORD_INITIALIZATION
+  "员工离职"
+  USER_RESIGN
+  "员工查看"
+  USER_VIEW
+}
+
+enum UserStatus {
+  "在职"
+  NORMAL
+  "离职"
+  RESIGN
+}
+
+input InputHandoverInfo {
+  "交接名称"
+  handoverName: String!
+  "离职目标ID"
+  handoverTargetId: Int!
+  "离职内容分类"
+  handoverType: HandoverType!
+  "交接人员"
+  handoverUserId: Int!
+  "离职人员"
+  leaverId: Int!
+}
+
+"Built-in java.util.Date"
+scalar Date

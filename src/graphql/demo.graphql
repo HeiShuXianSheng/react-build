@@ -1,0 +1,8 @@
+
+query QUERY_USER($id: Int) {
+    user: user(id: $id) {
+        id
+        name
+    }
+}
+

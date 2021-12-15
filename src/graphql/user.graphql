@@ -1,0 +1,158 @@
+#import "./fragments.graphql"
+
+query QUERY_USER($id: Int) {
+  user: user(id: $id) {
+    ...UserFragment
+  }
+}
+
+query QUERY_USER_LIST(
+  $departmentId: [Int!]
+  $limit: Int
+  $page: Int
+  $search: String
+  $sorts: [String!]
+  $status: [UserStatus!]
+) {
+  userList: userPage(
+    departmentId: $departmentId
+    limit: $limit
+    page: $page
+    sorts: $sorts
+    search: $search
+    status: $status
+  ) {
+    current: page
+    pageSize: limit
+    total: totalCount
+    data: nodes {
+      ...UserFragment
+    }
+  }
+
+  nodesPagination: userPage(
+    departmentId: $departmentId
+    limit: $limit
+    page: $page
+    sorts: $sorts
+    search: $search
+    status: $status
+  ) {
+    current: page
+    pageSize: limit
+    total: totalCount
+    nodes {
+      ...UserFragment
+    }
+  }
+}
+
+query QUERY_USER_LIST_FOR_OPTIONS(
+  $departmentId: [Int!]
+  $limit: Int
+  $page: Int
+  $search: String
+  $sorts: [String!]
+  $status: [UserStatus!]
+) {
+  nodesPagination: userPage(
+    departmentId: $departmentId
+    limit: $limit
+    page: $page
+    sorts: $sorts
+    search: $search
+    status: $status
+  ) {
+    current: page
+    pageSize: limit
+    total: totalCount
+    nodes {
+      id
+      name
+    }
+  }
+}
+
+mutation UPDATE_USER(
+  $id: Int!
+  $name: String!
+  $phone: String!
+  $email: String!
+  $departmentId: Int!
+  $dutyId: Int!
+  $shouldChangePassword: Boolean!
+  $roleId: [Int!]
+  $superiorId: Int
+) {
+  succeed: updateUser(
+    id: $id
+    name: $name
+    phone: $phone
+    email: $email
+    departmentId: $departmentId
+    dutyId: $dutyId
+    shouldChangePassword: $shouldChangePassword
+    roleId: $roleId
+    superiorId: $superiorId
+  )
+}
+
+# LOGIN 登录接口名，不可改动，apollo 会在此名的 request header 中不携带 uin
+mutation LOGIN($password: String!, $phone: String!) {
+  user: userLogin(password: $password, phone: $phone) {
+    ...UserFragment
+  }
+}
+
+mutation LOGOUT {
+  logout
+}
+
+mutation QYWX_CODE_LOGIN($code: String!) {
+  user: qywxCodeLogin(code: $code) {
+    ...UserFragment
+  }
+}
+
+mutation CREATE_USER(
+  $departmentId: Int!
+  $dutyId: Int!
+  $email: String!
+  $name: String!
+  $phone: String!
+  $roleId: [Int!]
+  $shouldChangePassword: Boolean!
+  $superiorId: Int
+) {
+  succeed: createUser(
+    departmentId: $departmentId
+    dutyId: $dutyId
+    email: $email
+    name: $name
+    phone: $phone
+    roleId: $roleId
+    shouldChangePassword: $shouldChangePassword
+    superiorId: $superiorId
+  )
+}
+
+mutation RESET_PASSWORD($id: [Int!]!) {
+  succeed: resetPassword(id: $id)
+}
+
+query HANDOVER_INFO($userId: Int!) {
+  data: handoverInfo(userId: $userId) {
+    ...HandoverInfoFragment
+  }
+}
+mutation RESIGN($handoverInfo: [InputHandoverInfo!]!, $resignUserId: Int!) {
+  succeed: resign(handoverInfo: $handoverInfo, resignUserId: $resignUserId)
+}
+
+mutation CHANGE_PASSWORD($oldPassword: String!, $password: String!) {
+  changePassword(oldPassword: $oldPassword, password: $password)
+}
+
+mutation BIND_WX_TO_USER($code: String!) {
+  bindWXToUser(code: $code)
+}
