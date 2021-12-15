@@ -26,6 +26,7 @@ function createWindow () {
   //   protocol: 'file:',
   //   slashes: true
   // }));
+  // mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   // 加载应用 --开发阶段  需要运行 npm run start
   // TODO: 正式服地址
